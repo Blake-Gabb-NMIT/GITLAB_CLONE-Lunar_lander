@@ -114,3 +114,11 @@ def CanRender():
             return()
 
     
+def distFromTarget(selfx, selfy, target): #this gets the dist between to objects, max vaule should be sqrt of range
+    distx = (selfx - target)
+    disty = (selfy - target)
+    try:
+        truedist = (math.sqrt(abs(distx - disty)))
+    except:
+        truedist = 0
+    return truedist

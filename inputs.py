@@ -1,5 +1,5 @@
 import pygame
-turn = 1
+turn = 1 #this is the rate of turn per frame? 
 
 def input(thrust, left, right): # gets users input and directly converts into thrust vaules
     events = pygame.event.get()

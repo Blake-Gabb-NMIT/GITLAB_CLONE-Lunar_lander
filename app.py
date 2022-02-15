@@ -6,8 +6,11 @@ from Physics import worldMaker
 from Physics import finishMaker
 import Physics
 import inputs 
-from Physics import render, renderFinish
+from Physics import render, renderFinish, distFromTarget
 import random
+
+
+
 #setting up the window
 pygame.init()
 Running = True #detirmies if the program keeps running to stops
@@ -26,22 +29,35 @@ left = 0
 angle = 0
 seed = 200
 start = random.randint(1,20)
-fuel = 10 # seconds of burn time
-mono = 20
+fuel = 1000 # seconds of burn time
+mono = 20 # seconds of spinny-ness? idk how e
+#these vaules are the max ammounts that the ships tank can take, as will be adding refueling into the game
+fuel_cap = fuel
+mono_cap = fuel 
+
+###
 
 
-ship_og = pygame.image.load("ship.jpg")
+#setting up the ship in pygame to be drawn in
+ship_og = pygame.image.load("ship.jpg") #ship_og is the image file of the ship
 ship_og = pygame.transform.rotate(ship_og, 0)
 ship_og = pygame.transform.scale(ship_og, (40,40))
-ship_rect = ship_og.get_rect(center= (landerX,landerY))
+ship_rect = ship_og.get_rect(center= (landerX,landerY)) # ship rect is the physics body of the ship(?) 
+###
+
+#this just makes a random-ass world, if you can call i that
 worldData = worldMaker(seed,start)
-finishDataX, finishDataY = finishMaker(worldData)
+finishDataX, finishDataY = finishMaker(worldData) #pretty sure that this just checks the highest and lowest points of the data
+###
+
+#print statements, not sure what they do but theyll stay for now
 print (finishDataX)
 print(finishDataY)
+###
     
 x = 0
 while Running:
-    #this whole section controlls frame rates
+#### this whole section controlls frame rates ####
     frame_cap = 1.0/timeConstant
     time = t.time()
     unprocessed = 0
@@ -58,6 +74,9 @@ while Running:
             can_render = True
 
         if can_render: #if the frame rate is not over 60 it will start the render process
+#### end of frame counter #### 
+
+
 
 #################################################################################################################
             #start of game
@@ -98,6 +117,9 @@ while Running:
             landerY -= landerVY
             landerX += landerVX
 
+            Zone = 400
+            
+            print(distFromTarget(landerX,landerY, Zone))
 
             if landerY >= 800: # if lander is touching the ground
                 landerY = 800
