@@ -1,4 +1,4 @@
-import pygame, msvcrt
+import pygame
 import time as t 
 from pygame import display
 from pygame import key
