@@ -35,6 +35,11 @@ mono = 20 # seconds of spinny-ness? idk how e
 fuel_cap = fuel
 mono_cap = fuel 
 
+targetX = 0
+targetY = 0
+targethit = False
+
+
 ###
 
 
@@ -54,7 +59,13 @@ finishDataX, finishDataY = finishMaker(worldData) #pretty sure that this just ch
 print (finishDataX)
 print(finishDataY)
 ###
-    
+
+
+ObjectiveX, objectiveY = Physics.objectiveGen(20)
+ObjectiveActive = True
+
+
+
 x = 0
 while Running:
 #### this whole section controlls frame rates ####
@@ -117,9 +128,9 @@ while Running:
             landerY -= landerVY
             landerX += landerVX
 
-            Zone = 400
+            Zone = 400 #?
             
-            print(distFromTarget(landerX,landerY, Zone))
+            #print(distFromTarget(landerX,landerY, Zone))
 
             if landerY >= 800: # if lander is touching the ground
                 landerY = 800
@@ -130,13 +141,20 @@ while Running:
                 Running = False
 
 
+            if distFromTarget(landerX,landerY,ObjectiveX,objectiveY) < 5:
+                print("inrange")
+
+
+            
+
             #renders the whole screen
+            Physics.drawObject(ObjectiveX,objectiveY,20,(0,100,0),screen)
             screen.fill((255, 255, 255)) # makes the screen white
             screen.blit(ship, ship_rect)
 
             #pygame.draw.circle(screen, (0, 0, 0), (landerX, landerY), 20) #then draws the "ship" over top
             render(worldData,screen)
-            renderFinish(finishDataY,finishDataX,screen)
+            #renderFinish(finishDataY,finishDataX,screen)
             display.flip() #this shouldbe the final line, this renders the screen an updates the frames
             if Running == False:
                 break

@@ -1,7 +1,7 @@
 import numpy
 import math
 import time as t
-
+import random
 import pygame
 from noise import pnoise1 as pynoise1
 #this is more the engine file then anything
@@ -49,7 +49,7 @@ def Vectors(timeConstant,velocityY,thrust,velocityX,angle): #gets all inputs and
 def worldMaker(seed,start):
     x = 0
     world = []
-    px = 1 / seed
+    px = 1 / scale
     px += start
     while x != 800:
         world.append(800-((pynoise1(px,1)+1)*200))
@@ -69,13 +69,20 @@ def finishMaker(worldData):
             x += 1
             memory = item
 
-def renderFinish(x,finishData,screen):
+def renderFinish(x,finishData,screen): #not sure what this is for, but itll stay here for a bit, think it was for the target system?
     pix = 0
     while pix !=100:
         pygame.draw.circle(screen,(0,100,0),(x-50,((finishData+10))),10)
         pix+=1
     return
 
+def objectiveGen(range):
+    objX = random.randint(0,range)
+    objY = random.randint(0,range)
+    return objX, objY
+
+def drawObject(x,y,sise,color,screen):
+    pygame.draw.circle(screen,(color),(x,y),sise)
 
 def alive(shipx,shipy,world):
     if world[shipx] > shipy+25:
@@ -114,9 +121,9 @@ def CanRender():
             return()
 
     
-def distFromTarget(selfx, selfy, target): #this gets the dist between to objects, max vaule should be sqrt of range
-    distx = (selfx - target)
-    disty = (selfy - target)
+def distFromTarget(selfx, selfy, targetx,targety): #this gets the dist between to objects, max vaule should be sqrt of range
+    distx = (selfx - targetx)
+    disty = (selfy - targety)
     try:
         truedist = (math.sqrt(abs(distx - disty)))
     except:
