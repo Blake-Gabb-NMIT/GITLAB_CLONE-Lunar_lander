@@ -61,7 +61,7 @@ print(finishDataY)
 ###
 
 
-ObjectiveX, objectiveY = Physics.objectiveGen(20)
+ObjectiveX, objectiveY = Physics.objectiveGen(800)
 ObjectiveActive = True
 
 
@@ -142,15 +142,18 @@ while Running:
 
 
             if distFromTarget(landerX,landerY,ObjectiveX,objectiveY) < 5:
-                print("inrange")
+                print(distFromTarget(landerX,landerY,ObjectiveX,objectiveY))
+                print("me")
 
 
             
 
             #renders the whole screen
-            Physics.drawObject(ObjectiveX,objectiveY,20,(0,100,0),screen)
+           
             screen.fill((255, 255, 255)) # makes the screen white
+            
             screen.blit(ship, ship_rect)
+            Physics.drawObject(ObjectiveX,objectiveY,20,(0,255,0),screen)
 
             #pygame.draw.circle(screen, (0, 0, 0), (landerX, landerY), 20) #then draws the "ship" over top
             render(worldData,screen)
