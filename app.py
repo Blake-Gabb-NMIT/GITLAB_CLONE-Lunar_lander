@@ -141,9 +141,10 @@ while Running:
                 Running = False
 
 
-            if distFromTarget(landerX,landerY,ObjectiveX,objectiveY) < 5:
+            if distFromTarget(landerX,landerY,ObjectiveX,objectiveY) < 2:
                 print(distFromTarget(landerX,landerY,ObjectiveX,objectiveY))
-                print("me")
+                ObjectiveX, objectiveY = Physics.objectiveGen(800)
+                print("wow")
 
 
             
