@@ -31,13 +31,17 @@ seed = 200
 start = random.randint(1,20)
 fuel = 1000 # seconds of burn time
 mono = 20 # seconds of spinny-ness? idk how e
+
 #these vaules are the max ammounts that the ships tank can take, as will be adding refueling into the game
 fuel_cap = fuel
 mono_cap = fuel 
 
+#setting up infor for target system
 targetX = 0
 targetY = 0
 targethit = False
+ObjectiveX, objectiveY = Physics.objectiveGen(800)
+ObjectiveActive = True
 
 
 ###
@@ -52,22 +56,25 @@ ship_rect = ship_og.get_rect(center= (landerX,landerY)) # ship rect is the physi
 
 #this just makes a random-ass world, if you can call i that
 worldData = worldMaker(seed,start)
-finishDataX, finishDataY = finishMaker(worldData) #pretty sure that this just checks the highest and lowest points of the data
-###
+finishDataX, finishDataY = finishMaker(worldData) #pretty sure that this just checks the highest and lowest points of the data(unused)
 
-#print statements, not sure what they do but theyll stay for now
-print (finishDataX)
-print(finishDataY)
 ###
 
 
-ObjectiveX, objectiveY = Physics.objectiveGen(800)
-ObjectiveActive = True
+
+
+
+
+
+
 
 
 
 x = 0
 while Running:
+
+
+
 #### this whole section controlls frame rates ####
     frame_cap = 1.0/timeConstant
     time = t.time()
@@ -85,7 +92,6 @@ while Running:
             can_render = True
 
         if can_render: #if the frame rate is not over 60 it will start the render process
-#### end of frame counter #### 
 
 
 
@@ -95,11 +101,10 @@ while Running:
 
             thrust, right, left = inputs.input(thrust, left, right) # gets the users inputs
             if thrust == True:
-                fuel -= 1/timeConstant
+                fuel -= 1/timeConstant # this takes away the mono used per frame
                 if fuel < 0:
                     Running = False
                     print("Out of fuel")
-                #print(fuel,mono)
             mono -= abs(left - right)/timeConstant
             if mono < 0:
                 Running = False
@@ -130,18 +135,17 @@ while Running:
 
             Zone = 400 #?
             
-            #print(distFromTarget(landerX,landerY, Zone))
 
             if landerY >= 800: # if lander is touching the ground
                 landerY = 800
                 landerVY = 0
 
-            if Physics.alive(int(landerX),int(landerY),worldData) == False:
+            if Physics.alive(int(landerX),int(landerY),worldData) == False: #this checks to see if the player is alive
                 print("dead")
                 Running = False
 
 
-            if distFromTarget(landerX,landerY,ObjectiveX,objectiveY) < 2:
+            if distFromTarget(landerX,landerY,ObjectiveX,objectiveY) < 10:
                 print(distFromTarget(landerX,landerY,ObjectiveX,objectiveY))
                 ObjectiveX, objectiveY = Physics.objectiveGen(800)
                 print("wow")
