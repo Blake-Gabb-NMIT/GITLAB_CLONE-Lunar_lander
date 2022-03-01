@@ -160,7 +160,7 @@ while Running:
             fuel_render = round(fuel,1)
             font_color = pygame.Color('black')
             font = pygame.font.Font(None,20)
-            text = font.render(str(distFromObejctive), True, font_color)
+            text = font.render(str(fuel_render), True, font_color)
             screen.blit(text,(50,50))
 
 
