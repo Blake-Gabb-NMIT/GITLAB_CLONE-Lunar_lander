@@ -4,6 +4,7 @@ import time as t
 import random
 import pygame
 from noise import pnoise1 as pynoise1
+import time
 #this is more the engine file then anything
 
 
@@ -76,9 +77,14 @@ def renderFinish(x,finishData,screen): #not sure what this is for, but itll stay
         pix+=1
     return
 
-def objectiveGen(range):
-    objX = random.randint(0,range)
-    objY = random.randint(0,range)
+def objectiveGen(range,world):
+    while True:
+        objX = random.randint(0,range)
+        objY = random.randint(0,range)
+        if world[objX] > objX+25:
+            pass
+        else:
+            break
     return objX, objY
 
 def drawObject(x,y,sise,color,screen):
@@ -122,10 +128,18 @@ def CanRender():
 
     
 def distFromTarget(selfx, selfy, targetx,targety): #this gets the dist between to objects, max vaule should be sqrt of range
-    distx = abs((abs(selfx) - abs(targetx)))
-    disty = abs((abs(selfy) - abs(targety)))
-    try:
-        truedist = (math.sqrt((distx**2)-(disty**2)))
-    except:
-        truedist = 10
+    distx = int(abs((abs(selfx) - abs(targetx))))
+    disty = int(abs((abs(selfy) - abs(targety))))
+    if disty > 20 and distx > 20: 
+        return 999 # to far
+    elif distx == 0 or disty == 0:
+        return 888
+    else:
+        try:
+            truedist = abs(math.sqrt(abs(distx**2)+(disty**2)))
+        except:
+            print("error")
+            print(distx)
+            print(disty)
+            time.sleep(0.2)
     return truedist

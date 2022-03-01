@@ -29,7 +29,7 @@ left = 0
 angle = 0
 seed = 200
 start = random.randint(1,20)
-fuel = 10 # seconds of burn time
+fuel = 100 # seconds of burn time
 mono = 20 # seconds of spinny-ness? idk how e
 
 #these vaules are the max ammounts that the ships tank can take, as will be adding refueling into the game
@@ -37,10 +37,11 @@ fuel_cap = fuel
 mono_cap = fuel 
 
 #setting up infor for target system
+worldData = worldMaker(seed,start)
 targetX = 0
 targetY = 0
 targethit = False
-ObjectiveX, objectiveY = Physics.objectiveGen(800)
+ObjectiveX, objectiveY = Physics.objectiveGen(800,worldData)
 ObjectiveActive = True
 
 
@@ -55,7 +56,7 @@ ship_rect = ship_og.get_rect(center= (landerX,landerY)) # ship rect is the physi
 ###
 
 #this just makes a random-ass world, if you can call i that
-worldData = worldMaker(seed,start)
+
 finishDataX, finishDataY = finishMaker(worldData) #pretty sure that this just checks the highest and lowest points of the data(unused)
 
 ###
@@ -144,13 +145,11 @@ while Running:
                 print("dead")
                 Running = False
 
-
-            if distFromTarget(landerX,landerY,ObjectiveX,objectiveY) < 10:
-                print(distFromTarget(landerX,landerY,ObjectiveX,objectiveY))
-                ObjectiveX, objectiveY = Physics.objectiveGen(800)
+            distFromObejctive = distFromTarget(landerX,landerY,ObjectiveX,objectiveY)
+            if distFromObejctive < 40:
+                print(distFromObejctive)
+                ObjectiveX, objectiveY = Physics.objectiveGen(800,worldData)
                 print("wow")
-
-
             
 
             #renders the whole screen
@@ -160,8 +159,8 @@ while Running:
             #shows the fuel left
             fuel_render = round(fuel,1)
             font_color = pygame.Color('black')
-            font = pygame.font.Font(None,54)
-            text = font.render(str(fuel_render), True, font_color)
+            font = pygame.font.Font(None,20)
+            text = font.render(str(distFromObejctive), True, font_color)
             screen.blit(text,(50,50))
 
 
