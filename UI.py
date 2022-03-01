@@ -2,3 +2,8 @@
 #not sure how pygame reacts to functions from imports, but one way to find out
 
 import pygame
+
+
+def fuelCounter(screen,fuel):
+    font = pygame.font.Font(None,54)
+    font.render(str(fuel), True, font_color)

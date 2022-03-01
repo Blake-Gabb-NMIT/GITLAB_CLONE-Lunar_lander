@@ -29,7 +29,7 @@ left = 0
 angle = 0
 seed = 200
 start = random.randint(1,20)
-fuel = 1000 # seconds of burn time
+fuel = 10 # seconds of burn time
 mono = 20 # seconds of spinny-ness? idk how e
 
 #these vaules are the max ammounts that the ships tank can take, as will be adding refueling into the game
@@ -157,7 +157,16 @@ while Running:
            
             screen.fill((255, 255, 255)) # makes the screen white
             
+            #shows the fuel left
+            fuel_render = round(fuel,1)
+            font_color = pygame.Color('black')
+            font = pygame.font.Font(None,54)
+            text = font.render(str(fuel_render), True, font_color)
+            screen.blit(text,(50,50))
+
+
             screen.blit(ship, ship_rect)
+            
             Physics.drawObject(ObjectiveX,objectiveY,20,(0,255,0),screen)
 
             #pygame.draw.circle(screen, (0, 0, 0), (landerX, landerY), 20) #then draws the "ship" over top
