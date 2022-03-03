@@ -1,4 +1,7 @@
 import pygame
+
+#not even sure why this is in a external file, night add it to a list of functions i have
+
 turn = 1 #this is the rate of turn per frame? 
 
 def input(thrust, left, right): # gets users input and directly converts into thrust vaules
