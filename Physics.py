@@ -83,6 +83,7 @@ def objectiveGen(range,world):
         objY = random.randint(0,range)
         if world[objX] > objX+25:
             pass
+            print("error")
         else:
             break
     return objX, objY
@@ -143,3 +144,28 @@ def distFromTarget(selfx, selfy, targetx,targety): #this gets the dist between t
             print(disty)
             time.sleep(0.2)
     return truedist
+
+
+"""
+astorids are going to be store in a array, the ammont will be decidied by the game, IE time, diffaculty Etc
+
+
+"""
+
+
+
+
+
+def astoroidsSpawn(dangers): # if there isnt the max number of astroids, will spawn new ones in 
+    dangersX = dangers[0]
+    dangersX.append(random.randint(0,800))
+    dangersY = dangers[1]
+    dangersY.append(800) #sets to max height
+    return dangers
+
+def astoridControler(dangers,setting,worldata):
+    pass
+
+def astoridRender(dangers):
+    pass
+

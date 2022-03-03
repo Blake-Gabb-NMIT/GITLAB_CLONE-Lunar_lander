@@ -29,8 +29,13 @@ left = 0
 angle = 0
 seed = 200
 start = random.randint(1,20)
-fuel = 100 # seconds of burn time
-mono = 20 # seconds of spinny-ness? idk how e
+fuel = 10 # seconds of burn time
+mono = 10 # seconds of spinny-ness? idk 
+
+
+#this makes new astoroids
+dangers = [[],[]]
+dangers = Physics.astoroidsSpawn(dangers,2)
 
 #these vaules are the max ammounts that the ships tank can take, as will be adding refueling into the game
 fuel_cap = fuel
@@ -59,17 +64,7 @@ ship_rect = ship_og.get_rect(center= (landerX,landerY)) # ship rect is the physi
 
 finishDataX, finishDataY = finishMaker(worldData) #pretty sure that this just checks the highest and lowest points of the data(unused)
 
-###
-
-
-
-
-
-
-
-
-
-
+### this makes the game run at 60 fps (timeConstant)
 
 x = 0
 while Running:
@@ -106,13 +101,13 @@ while Running:
                 if fuel < 0:
                     Running = False
                     print("Out of fuel")
-            mono -= abs(left - right)/timeConstant
+            mono -= abs(left - right)/timeConstant # this clauclates the ammont of mono used per frame per key press
             if mono < 0:
                 Running = False
                 print("out of mono")
             
 
-            #converts all the angles so that 0 is up
+            #converts all the angles so that 0 is up, only works if ship is upwards facing
             angle += left - right
             if angle > 180:
                 angle -= 360
@@ -123,21 +118,21 @@ while Running:
 
 
 
-            landerVY, landerVX = Physics.Vectors(timeConstant,landerVY,thrust,landerVX,angle)
+            landerVY, landerVX = Physics.Vectors(timeConstant,landerVY,thrust,landerVX,angle) #gets the ships x and y velocity
 
 
-            #shows the ships angle
+            #shows the ships angle on screen, and edits the ships render(?)
             ship = pygame.transform.rotate(ship_og, (angle))
             ship_rect = ship.get_rect(center= (landerX,landerY))
 
-            #adds the new veloctiys of the ships, if any changes
-            landerY -= landerVY
+            #adds the new veloctiys of the ships, if any changes 
+            landerY -= landerVY 
             landerX += landerVX
 
             Zone = 400 #?
             
 
-            if landerY >= 800: # if lander is touching the ground
+            if landerY >= 800: # if lander is touching the ground # no longer used as touching ground kills player
                 landerY = 800
                 landerVY = 0
 
@@ -149,10 +144,21 @@ while Running:
             if distFromObejctive < 40:
                 print(distFromObejctive)
                 ObjectiveX, objectiveY = Physics.objectiveGen(800,worldData)
+                fuel += 2
+                mono += 1
                 print("wow")
             
 
-            #renders the whole screen
+             ##### Danger zone #####
+
+             
+           
+           
+           
+           
+           
+           
+            #renders the whole screen leave this till after all the game play elements have been done
            
             screen.fill((255, 255, 255)) # makes the screen white
             
