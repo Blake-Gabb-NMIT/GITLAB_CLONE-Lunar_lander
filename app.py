@@ -31,11 +31,13 @@ seed = 200
 start = random.randint(1,20)
 fuel = 10 # seconds of burn time
 mono = 10 # seconds of spinny-ness? idk 
+score = 0
+
 
 
 #this makes new astoroids
 dangers = [[],[]]
-dangers = Physics.astoroidsSpawn(dangers,2)
+#dangers = Physics.astoroidsSpawn(dangers,2)
 
 #these vaules are the max ammounts that the ships tank can take, as will be adding refueling into the game
 fuel_cap = fuel
@@ -138,6 +140,14 @@ while Running:
 
             if Physics.alive(int(landerX),int(landerY),worldData) == False: #this checks to see if the player is alive
                 print("dead")
+                font_color = pygame.Color('black')
+                font = pygame.font.Font(None,58)
+                text3 = font.render(str(score), True, font_color)
+                screen.blit(text3,(400,400))
+                display.flip()
+
+                import time
+                time.sleep(10)
                 Running = False
 
             distFromObejctive = distFromTarget(landerX,landerY,ObjectiveX,objectiveY)
@@ -147,6 +157,7 @@ while Running:
                 fuel += 2
                 mono += 1
                 print("wow")
+                score += 1
             
 
              ##### Danger zone #####
@@ -168,6 +179,12 @@ while Running:
             font = pygame.font.Font(None,20)
             text = font.render(str(fuel_render), True, font_color)
             screen.blit(text,(50,50))
+
+            mono_render = round(mono,1)
+            font_color = pygame.Color('black')
+            font = pygame.font.Font(None,20)
+            text2 = font.render(str(mono_render), True, font_color)
+            screen.blit(text2,(100,50))
 
 
             screen.blit(ship, ship_rect)

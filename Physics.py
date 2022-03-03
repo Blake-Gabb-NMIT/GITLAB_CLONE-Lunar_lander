@@ -81,7 +81,7 @@ def objectiveGen(range,world):
     while True:
         objX = random.randint(0,range)
         objY = random.randint(0,range)
-        if world[objX] > objX+25:
+        if world[objX] < objY+25:
             pass
             print("error")
         else:
@@ -151,10 +151,6 @@ astorids are going to be store in a array, the ammont will be decidied by the ga
 
 
 """
-
-
-
-
 
 def astoroidsSpawn(dangers): # if there isnt the max number of astroids, will spawn new ones in 
     dangersX = dangers[0]
